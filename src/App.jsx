@@ -15,16 +15,21 @@ export default function App() {
 
         {/* HERO */}
         <section className="min-h-screen flex flex-col justify-center">
+
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            Lara Aslan
+          </h1>
+
           <p className="text-blue-400 text-xs tracking-[0.3em] uppercase mb-6">
-            Data • AI • ML Engineer
+            Master of Engineer; AI, Data, and ML Enthusiast
           </p>
 
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            I build systems that turn data into decisions.
+            I turn data into insights.
           </h1>
 
           <p className="text-slate-400 max-w-xl mb-10">
-            NLP, machine learning, and real-world AI applications.
+            NLP, Machine Learning, and applied AI systems.
           </p>
 
           <div className="flex gap-4">
@@ -33,6 +38,12 @@ export default function App() {
             </a>
             <a className="px-5 py-3 border border-white/10 rounded-xl">
               GitHub
+            </a>
+            <a className="px-5 py-3 border border-white/10 rounded-xl">
+              LinkedIn
+            </a>
+            <a className="px-5 py-3 border border-white/10 rounded-xl">
+              HuggingFace
             </a>
           </div>
         </section>
@@ -46,20 +57,20 @@ export default function App() {
             <div className="p-6 rounded-xl border border-white/10 bg-white/5">
               <div className="flex items-center gap-2 mb-3">
                 <Brain size={18} className="text-blue-400" />
-                <h3 className="font-semibold">Fake News Detection</h3>
+                <h3 className="font-semibold">AI News Detector</h3>
               </div>
               <p className="text-slate-400 text-sm">
-                BERT-based misinformation detection system.
+                Automatic tool for Chromium based browser to detect misinformation and AI-generated text.
               </p>
             </div>
 
             <div className="p-6 rounded-xl border border-white/10 bg-white/5">
               <div className="flex items-center gap-2 mb-3">
                 <Bot size={18} className="text-blue-400" />
-                <h3 className="font-semibold">AI Detection Tool</h3>
+                <h3 className="font-semibold">Customer Churn Project</h3>
               </div>
               <p className="text-slate-400 text-sm">
-                Chrome extension for AI text detection.
+                End-to-end machine learning project that predicts customer churn and visualizes risk insights through an interactive dashboard with model explainability. 
               </p>
             </div>
 
