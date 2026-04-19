@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
-import { Brain, Bot, Download, Github, Linkedin, Smile, ExternalLink } from "lucide-react";
+import {
+  Brain,
+  Bot,
+  Download,
+  Github,
+  Linkedin,
+  Smile,
+  ExternalLink,
+  X
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function App() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [entered, setEntered] = useState(false);
   const [scan, setScan] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     const move = (e) => setPos({ x: e.clientX, y: e.clientY });
@@ -23,21 +33,44 @@ export default function App() {
     "hover:bg-white/10 hover:shadow-[0_0_25px_rgba(245,197,66,0.25)] transition-all duration-300";
 
   const card =
-    "p-6 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300";
+    "p-6 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer";
 
   const youtubeEmbedUrl = "PASTE_YOUTUBE_EMBED_URL_HERE";
+
+  const projects = [
+    {
+      title: "AI News Detector",
+      description: "Chromium-based misinformation & AI text detection tool.",
+      what:
+        "A browser extension that detects AI-generated and misleading content in real time.",
+      why: "AI-generated misinformation is becoming harder to detect.",
+      built: "Full system with ML model + Flask backend + browser extension UI.",
+      tech: "Python, Flask, BERT, JavaScript",
+      result: "Working prototype analyzing live webpage content.",
+      github: "https://github.com/sinpacchan/ai-news-detector"
+    },
+    {
+      title: "Customer Churn Project",
+      description: "ML system predicting churn with explainable insights.",
+      what: "Predicts customer churn and explains why users leave.",
+      why: "Retention is critical for business success.",
+      built: "End-to-end ML pipeline + visualization.",
+      tech: "Python, Scikit-learn, Pandas, SHAP",
+      result: "Model with interpretable churn insights.",
+      github: "https://github.com/sinpacchan/customer-churn-predictor"
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
 
-      {/* 🌙 soft cursor aura (now more cinematic, less harsh) */}
+      {/* glow */}
       <div
         className="pointer-events-none fixed w-[520px] h-[520px] rounded-full blur-[180px] opacity-25"
         style={{
           left: pos.x - 260,
           top: pos.y - 260,
-          background:
-            "radial-gradient(circle, rgba(245,197,66,0.45), transparent 72%)"
+          background: "radial-gradient(circle, rgba(245,197,66,0.35), transparent 70%)"
         }}
       />
 
@@ -59,35 +92,32 @@ export default function App() {
           }}
         />
       </div>
-
-      {/* ⚡ scan line (more subtle, less aggressive glow) */}
+      {/* scan line */}
       {scan && (
         <motion.div
           initial={{ y: -200, opacity: 0 }}
           animate={{ y: "120vh", opacity: 1 }}
-          transition={{ duration: 0.85, ease: "easeInOut" }}
+          transition={{ duration: 0.8 }}
           className="fixed left-0 w-full h-[2px] z-50 pointer-events-none"
           style={{
             background:
               "linear-gradient(90deg, transparent, rgba(245,197,66,0.8), transparent)",
-            boxShadow: "0 0 22px rgba(245,197,66,0.6)"
+            boxShadow: "0 0 25px rgba(245,197,66,0.6)"
           }}
         />
       )}
 
       <AnimatePresence mode="wait">
 
-        {/* ================= INTRO ================= */}
+        {/* INTRO */}
         {!entered && (
           <motion.div
-            key="gate"
+            className="min-h-screen flex flex-col justify-center items-center text-center px-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.6 }}
-            className="min-h-screen flex flex-col justify-center items-center text-center px-6"
+            exit={{ opacity: 0 }}
           >
-            <motion.div className={`${glass} p-10 rounded-2xl max-w-xl`}>
+            <div className={`${glass} p-10 rounded-2xl max-w-xl`}>
               <h1 className="text-5xl md:text-6xl font-bold mb-6">
                 Lara Aslan
               </h1>
@@ -104,75 +134,51 @@ export default function App() {
                 NLP, Machine Learning, and applied AI systems.
               </p>
 
-              <motion.button
+              <button
                 onClick={() => {
                   setScan(true);
-                  setTimeout(() => setEntered(true), 750);
+                  setTimeout(() => setEntered(true), 700);
                 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
                 className="px-8 py-3 rounded-xl font-medium text-black"
                 style={{ backgroundColor: accent }}
               >
                 Click to enter
-              </motion.button>
-            </motion.div>
+              </button>
+            </div>
           </motion.div>
         )}
 
-        {/* ================= MAIN ================= */}
+        {/* MAIN */}
         {entered && (
-          <motion.main
-            key="main"
-            initial={{ opacity: 0, filter: "blur(6px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.7 }}
-            className="max-w-5xl mx-auto px-6"
-          >
+          <motion.main className="max-w-5xl mx-auto px-6">
 
             {/* HERO */}
             <section className="min-h-[60vh] flex flex-col justify-center space-y-6">
+              <h1 className="text-5xl md:text-6xl font-bold">
+                Lara Aslan
+              </h1>
 
-              <div>
-                <h1 className="text-5xl md:text-6xl font-bold">
-                  Lara Aslan
-                </h1>
-
-                <p className="text-yellow-400 text-xs tracking-[0.3em] uppercase mt-3">
-                  Master of Engineer · AI / ML / Data
-                </p>
-              </div>
+              <p className="text-yellow-400 text-xs tracking-[0.3em] uppercase">
+                Master of Engineer · AI / ML / Data
+              </p>
 
               <div className="flex flex-wrap gap-3 mt-4">
-
-                <a
-                  href="/my-portfolio/Lara_Aslan_CV.pdf"
-                  download
-                  className="flex items-center gap-2 px-6 py-3 rounded-xl text-black font-medium"
-                  style={{ backgroundColor: accent }}
-                >
-                  <Download size={18} />
+                <a href="/my-portfolio/Lara_Aslan_CV.pdf" download className="px-6 py-3 rounded-xl text-black font-medium" style={{ backgroundColor: accent }}>
+                  <Download size={18} className="inline mr-2" />
                   Download CV
                 </a>
 
-                <a href="https://github.com/sinpacchan" target="_blank" className={buttonClass}>
-                  <Github size={18} /> GitHub
-                </a>
-
-                <a href="https://www.linkedin.com/in/lara-aslan-b6a58022a/" target="_blank" className={buttonClass}>
-                  <Linkedin size={18} /> LinkedIn
-                </a>
-
-                <a href="https://huggingface.co/lvulpecula" target="_blank" className={buttonClass}>
-                  <Smile size={18} /> HuggingFace
-                </a>
-
+                <a href="https://github.com/sinpacchan" className={buttonClass}><Github size={18}/> GitHub</a>
+                <a href="https://www.linkedin.com/in/lara-aslan-b6a58022a/" className={buttonClass}><Linkedin size={18}/> LinkedIn</a>
+                <a href="https://huggingface.co/lvulpecula" className={buttonClass}><Smile size={18}/> HuggingFace</a>
               </div>
             </section>
 
-            {/* INTRO */}
-            <section className="py-14 space-y-6">
-              <h2 className="text-2xl md:text-3xl font-semibold">Introduction</h2>
+            {/* INTRO VIDEO */}
+            <section className="py-14">
+              <h2 className="text-2xl md:text-3xl font-semibold mb-6">
+                Introduction
+              </h2>
 
               <div className={card}>
                 {youtubeEmbedUrl === "PASTE_YOUTUBE_EMBED_URL_HERE" ? (
@@ -186,37 +192,30 @@ export default function App() {
             </section>
 
             {/* PROJECTS */}
-            <section className="py-14 space-y-6">
-              <h2 className="text-2xl md:text-3xl font-semibold">Projects</h2>
+            <section className="py-14">
+              <h2 className="text-2xl md:text-3xl font-semibold mb-6">
+                Projects
+              </h2>
 
               <div className="grid md:grid-cols-2 gap-5">
-
-                <div className={card}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Brain size={18} style={{ color: accent }} />
-                    <h3 className="font-semibold">AI News Detector</h3>
+                {projects.map((p, i) => (
+                  <div
+                    key={i}
+                    className={card}
+                    onClick={() => setSelectedProject(p)}
+                  >
+                    <h3 className="font-semibold mb-2">{p.title}</h3>
+                    <p className="text-slate-400 text-sm">{p.description}</p>
                   </div>
-                  <p className="text-slate-400 text-sm">
-                    Chromium-based misinformation & AI text detection tool.
-                  </p>
-                </div>
-
-                <div className={card}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Bot size={18} style={{ color: accent }} />
-                    <h3 className="font-semibold">Customer Churn Project</h3>
-                  </div>
-                  <p className="text-slate-400 text-sm">
-                    ML system predicting churn with explainable insights.
-                  </p>
-                </div>
-
+                ))}
               </div>
             </section>
 
-            {/* PUBLICATIONS */}
-            <section className="py-14 space-y-6">
-              <h2 className="text-2xl md:text-3xl font-semibold">Publications</h2>
+            {/* PUBLICATIONS (RESTORED) */}
+            <section className="py-14">
+              <h2 className="text-2xl md:text-3xl font-semibold mb-6">
+                Publications
+              </h2>
 
               <div className="space-y-5">
 
@@ -228,13 +227,11 @@ export default function App() {
                     Are Strong Baselines Enough? False News Detection with Machine Learning.
                   </p>
 
-                  <a
-                    href="https://www.mdpi.com/1999-5903/16/9/322"
-                    target="_blank"
-                    className="inline-flex items-center gap-2 mt-3"
-                    style={{ color: accent }}
-                  >
-                    <ExternalLink size={16} />
+                  <a href="https://www.mdpi.com/1999-5903/16/9/322"
+                     target="_blank"
+                     className="inline-flex items-center gap-2 mt-3"
+                     style={{ color: accent }}>
+                    <ExternalLink size={16}/>
                     Read publication
                   </a>
                 </div>
@@ -245,13 +242,11 @@ export default function App() {
                     Automatic False News Detection Using Machine Learning.
                   </p>
 
-                  <a
-                    href="https://www.theseus.fi/handle/10024/806192"
-                    target="_blank"
-                    className="inline-flex items-center gap-2 mt-3"
-                    style={{ color: accent }}
-                  >
-                    <ExternalLink size={16} />
+                  <a href="https://www.theseus.fi/handle/10024/806192"
+                     target="_blank"
+                     className="inline-flex items-center gap-2 mt-3"
+                     style={{ color: accent }}>
+                    <ExternalLink size={16}/>
                     Read publication
                   </a>
                 </div>
@@ -267,6 +262,47 @@ export default function App() {
         )}
 
       </AnimatePresence>
+
+      {/* PROJECT MODAL */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            className="fixed inset-0 bg-black/70 flex items-center justify-center px-6 z-50"
+            onClick={() => setSelectedProject(null)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className={`${glass} max-w-2xl w-full p-8 rounded-2xl`}
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+            >
+              <h2 className="text-2xl font-bold mb-4">
+                {selectedProject.title}
+              </h2>
+
+              <p className="text-slate-300 mb-4">{selectedProject.what}</p>
+              <p className="text-slate-400 text-sm mb-2"><b>Why:</b> {selectedProject.why}</p>
+              <p className="text-slate-400 text-sm mb-2"><b>Built:</b> {selectedProject.built}</p>
+              <p className="text-slate-400 text-sm mb-2"><b>Tech:</b> {selectedProject.tech}</p>
+              <p className="text-slate-400 text-sm mb-6"><b>Result:</b> {selectedProject.result}</p>
+
+              <a
+                href={selectedProject.github}
+                target="_blank"
+                className="inline-flex items-center gap-2 text-yellow-400"
+              >
+                <Github size={16}/>
+                View on GitHub
+              </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }
