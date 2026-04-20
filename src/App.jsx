@@ -35,7 +35,7 @@ export default function App() {
   const card =
     "p-6 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer";
 
-  const youtubeEmbedUrl = "PASTE_YOUTUBE_EMBED_URL_HERE";
+  const youtubeEmbedUrl = "https://youtube.com/embed/quXDTR25100";
 
   const projects = [
     {
@@ -92,6 +92,7 @@ export default function App() {
           }}
         />
       </div>
+      
       {/* scan line */}
       {scan && (
         <motion.div
